@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
 		navX.navX.zeroYaw();
 		inst = NetworkTableInstance.getDefault();
 
-
+		Robot.navX.zeroYaw();
 		Robot.drivebase.zeroEncoder();
 
 		/*visionTable = inst.getTable("JetsonTable");	
@@ -106,7 +106,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {		
-		//auto.run();
+		auto.run();
 	}
 
 	@Override
@@ -122,6 +122,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		OI.update();
+
+		if (OI.lBtn[2]) {
+			navX.navX.zeroYaw();
+		}
+
+		if (OI.lBtn[3]) {
+			Robot.drivebase.zeroEncoder();
+		}
+
+
 		Robot.drivebase.drive(OI.lY, OI.rY);
 	}
 
@@ -146,7 +156,7 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putNumber("Left Encoder", Robot.drivebase.getLeftEncoder());
 		SmartDashboard.putNumber("Right Encoder", Robot.drivebase.getRightEncoder());
-		
+		SmartDashboard.putNumber("NavX Yaw", Robot.navX.getYaw());
 
 	}
 
