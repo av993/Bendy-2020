@@ -21,14 +21,14 @@ public class Drivebase {
 	public Drivebase() {
 		rightBack = new WPI_TalonSRX(RobotMap.REAR_RIGHT);
 		rightFront = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
-		leftFront = new WPI_TalonSRX(RobotMap.FROMT_LEFT);
+		leftFront = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
 		leftBack = new WPI_TalonSRX(RobotMap.REAR_LEFT);
 		rightMotors = new SpeedControllerGroup(rightBack, rightFront);
 		leftMotors = new SpeedControllerGroup(leftBack, leftFront);
 		drive = new DifferentialDrive(leftMotors, rightMotors);
 		
 		rightBack.setInverted(RobotMap.REAR_RIGHT_INV);
-		rightFront.setInverted(RobotMap.FRONT_RIGHT_INV);
+		rightFront.setInverted(RobotMap.FRONT_RIGHT_INV); //false
 		leftBack.setInverted(RobotMap.REAR_LEFT_INV);
 		leftFront.setInverted(RobotMap.FRONT_LEFT_INV);
 		

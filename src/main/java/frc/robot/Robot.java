@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -47,11 +48,9 @@ public class Robot extends TimedRobot {
 	public static Joystick left;
 	public static Camera camera;
 	public static Joystick right;
+	public static Commands container;
+	public static DriveSubsystem driveSubsystem;
 
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
 	@Override
 	public void robotInit() {
 		
@@ -60,21 +59,16 @@ public class Robot extends TimedRobot {
 		left = new Joystick(0);
 		right = new Joystick(1);
 		camera = new Camera();
-
+		container = new Commands();
 		navX = new NavX();
 		pdp = new PowerDistributionPanel(RobotMap.PDP);
 		navX.navX.zeroYaw();
-		inst = NetworkTableInstance.getDefault();
-
+		driveSubsystem = new DriveSubsystem();
+		
 		Robot.navX.zeroYaw();
 		Robot.drivebase.zeroEncoder();
 
-		/*visionTable = inst.getTable("JetsonTable");	
-		widthEntry = visionTable.getEntry("Width");	
-		centerXEntry = visionTable.getEntry("Center X");
-		areaEntry = visionTable.getEntry("Area");
-		visionStringArrEntry = visionTable.getEntry("String Array");*/
-
+		inst = NetworkTableInstance.getDefault();
 		width = 0.0;
 		centerX = 0.0;
 		area = 0.0;
@@ -83,25 +77,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotPeriodic() {
 		updateSmartDashboard();
-		
 	}
 	
-	
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString line to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional comparisons to the
-	 * switch structure below with additional strings. If using the
-	 * SendableChooser make sure to add them to the chooser code above as well.
-	 */
+
 	@Override
 	public void autonomousInit() {
-		auto = new Autonomous();
-		auto.assembleTest();
+		navX.navX.zeroYaw();
+		Robot.drivebase.zeroEncoder();
+		container.getAutonomousCommand().schedule();
 	}
 
 	/**
@@ -109,14 +92,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {		
-		auto.run();
+		CommandScheduler.getInstance().run();
 	}
 
+	/**
+	 * Run once during operator control
+	 */
 	@Override
 	public void teleopInit() {
 		navX.navX.zeroYaw();
 		timer.reset();
-
 	}
 
 	/**
@@ -128,38 +113,24 @@ public class Robot extends TimedRobot {
 
 		if (OI.lBtn[2]) {
 			navX.navX.zeroYaw();
-		}
-
-		if (OI.lBtn[3]) {
+		} else if (OI.lBtn[3]) {
 			Robot.drivebase.zeroEncoder();
 		}
 
-
 		Robot.drivebase.drive(OI.lY, OI.rY);
-	}
+		Robot.driveSubsystem.periodic();
 
-	public static String[] getStringArr() {
-		return visionStringArrEntry.getStringArray(new String[0]);
 	}
 
 
-	/**
-	 * This function is called periodically during test mode
-	 */
-	@Override
-	public void testPeriodic() {
-	}
-	
-	@Override
-	public void disabledPeriodic() {
-		autoRunOnce = false;
-	}
 
 	public void updateSmartDashboard() {
-		
 		SmartDashboard.putNumber("Left Encoder", Robot.drivebase.getLeftEncoder());
 		SmartDashboard.putNumber("Right Encoder", Robot.drivebase.getRightEncoder());
 		SmartDashboard.putNumber("NavX Yaw", Robot.navX.getYaw());
+		SmartDashboard.putNumber("Subsystem Left", Robot.driveSubsystem.getLeftEncoder());
+		SmartDashboard.putNumber("Subsystem Right", Robot.driveSubsystem.getRightEncoder());
+
 
 	}
 }
