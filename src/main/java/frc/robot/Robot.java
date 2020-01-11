@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
 	static AutoStates autoSelected;
 	SendableChooser<AutoStates> chooser = new SendableChooser<>();
 	//static Camera camera;
-	static Drivebase drivebase;
+	//static Drivebase drivebase;
 	static Timer timer = new Timer();
 	static Autonomous auto;
 	static NavX navX;
@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		
 		timer.start();
-		drivebase = new Drivebase();
+		//drivebase = new Drivebase();
 		left = new Joystick(0);
 		right = new Joystick(1);
 		camera = new Camera();
@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
 		driveSubsystem = new DriveSubsystem();
 		
 		Robot.navX.zeroYaw();
-		Robot.drivebase.zeroEncoder();
+		//Robot.driveSubsystem.resetEncoders();
 
 		inst = NetworkTableInstance.getDefault();
 		width = 0.0;
@@ -83,7 +83,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		navX.navX.zeroYaw();
-		Robot.drivebase.zeroEncoder();
+		//Robot.drivebase.zeroEncoder();
+		Robot.driveSubsystem.resetEncoders();
 		container.getAutonomousCommand().schedule();
 	}
 
@@ -114,7 +115,7 @@ public class Robot extends TimedRobot {
 		if (OI.lBtn[2]) {
 			navX.navX.zeroYaw();
 		} else if (OI.lBtn[3]) {
-			Robot.drivebase.zeroEncoder();
+			Robot.driveSubsystem.resetEncoders();
 		}
 
 		Robot.driveSubsystem.drive(OI.lY, OI.rY);
@@ -125,12 +126,12 @@ public class Robot extends TimedRobot {
 
 
 	public void updateSmartDashboard() {
-		SmartDashboard.putNumber("Left Encoder", Robot.drivebase.getLeftEncoder());
-		SmartDashboard.putNumber("Right Encoder", Robot.drivebase.getRightEncoder());
+		SmartDashboard.putNumber("Left Encoder", Robot.driveSubsystem.getLeftEncoder());
+		SmartDashboard.putNumber("Right Encoder", Robot.driveSubsystem.getRightEncoder());
 		SmartDashboard.putNumber("NavX Yaw", Robot.navX.getYaw());
-		SmartDashboard.putNumber("Subsystem Left", Robot.driveSubsystem.getLeftEncoder());
-		SmartDashboard.putNumber("Subsystem Right", Robot.driveSubsystem.getRightEncoder());
-
-
+		SmartDashboard.putNumber("Left Wheel Speed", Robot.driveSubsystem.getWheelSpeeds().leftMetersPerSecond);
+		SmartDashboard.putNumber("Right Wheel Speed", Robot.driveSubsystem.getWheelSpeeds().rightMetersPerSecond);
+		SmartDashboard.putNumber("Left Distance", Robot.driveSubsystem.m_leftEncoder.getDistance());
+		SmartDashboard.putNumber("Right Distance", Robot.driveSubsystem.m_rightEncoder.getDistance());
 	}
 }

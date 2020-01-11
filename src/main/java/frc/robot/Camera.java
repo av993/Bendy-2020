@@ -24,7 +24,7 @@ public class Camera {
 	
 	public double getCameraDegreeOffset() {
 
-		int[][] visionArr = getVisionContours(0, Robot.getStringArr());
+		/*int[][] visionArr = getVisionContours(0, );
 
 		if (visionArr.length == 2) {
 
@@ -37,7 +37,7 @@ public class Camera {
 			
 			return angle;
 
-		}
+		}*/
 
 		return 0;
 	}
