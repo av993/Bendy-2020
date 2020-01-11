@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
 	static AutoStates autoSelected;
 	SendableChooser<AutoStates> chooser = new SendableChooser<>();
 	//static Camera camera;
-	//static Drivebase drivebase;
+	static Drivebase drivebase;
 	static Timer timer = new Timer();
 	static Autonomous auto;
 	static NavX navX;
@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		
 		timer.start();
-		//drivebase = new Drivebase();
+		drivebase = new Drivebase();
 		left = new Joystick(0);
 		right = new Joystick(1);
 		camera = new Camera();
