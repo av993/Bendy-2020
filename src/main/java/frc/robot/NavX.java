@@ -24,6 +24,7 @@ public class NavX { //this class controls the PID for the navX as well as the AH
 		navX = new AHRS(SPI.Port.kMXP);
 		//Called in RobotInit
 		originalHeading = 0;
+		
 	}
 		
 	public void setSetpoint(double setpoint) {

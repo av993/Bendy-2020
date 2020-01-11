@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+
 public class RobotMap {
 
 	//================= CAN IDs =================
@@ -39,4 +41,13 @@ public class RobotMap {
 	
 	public static final int AGITATOR_ID = 12;
 	public static final boolean AGITATOR_INV = true;
+
+
+	// FROM ROBOT CHARACTERIZATION \\
+	public static final double ksVolts = 1.5;
+	public static final double kvVoltSecondsPerMeter = 1.59;
+	public static final double kaVoltSecondsSquaredPerMeter = 0.483;
+	public static final double kTrackWidthMeters = 4.301423220;
+	public static final DifferentialDriveKinematics kDriveKinematics = 
+		new DifferentialDriveKinematics(kTrackWidthMeters);
 }

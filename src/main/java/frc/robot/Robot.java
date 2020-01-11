@@ -14,6 +14,9 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
+// TEST IMPORTS FOR TRAJECTORIES \\
+
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -159,7 +162,4 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("NavX Yaw", Robot.navX.getYaw());
 
 	}
-
-
 }
-
