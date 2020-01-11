@@ -21,8 +21,8 @@ public class DriveSubsystem extends SubsystemBase {
 	  SpeedControllerGroup leftMotors;
 	  DifferentialDrive drive;
 
-    private final Encoder m_leftEncoder; 
-    private final Encoder m_rightEncoder; 
+    public final Encoder m_leftEncoder; 
+    public final Encoder m_rightEncoder; 
     private final DifferentialDriveOdometry m_odometry;
 
     public DriveSubsystem() {

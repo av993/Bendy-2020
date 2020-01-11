@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 			Robot.drivebase.zeroEncoder();
 		}
 
-		Robot.drivebase.drive(OI.lY, OI.rY);
+		Robot.driveSubsystem.drive(OI.lY, OI.rY);
 		Robot.driveSubsystem.periodic();
 
 	}
