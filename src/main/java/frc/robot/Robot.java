@@ -15,16 +15,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-// TEST IMPORTS FOR TRAJECTORIES \\
 
-
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot extends TimedRobot {	
 	static AutoStates autoSelected;
 	SendableChooser<AutoStates> chooser = new SendableChooser<>();
@@ -48,7 +39,7 @@ public class Robot extends TimedRobot {
 	public static Joystick left;
 	public static Camera camera;
 	public static Joystick right;
-	public static Commands container;
+	public static Commands commands;
 	public static DriveSubsystem driveSubsystem;
 
 	@Override
@@ -59,7 +50,7 @@ public class Robot extends TimedRobot {
 		left = new Joystick(0);
 		right = new Joystick(1);
 		camera = new Camera();
-		container = new Commands();
+		commands = new Commands();
 		navX = new NavX();
 		pdp = new PowerDistributionPanel(RobotMap.PDP);
 		navX.navX.zeroYaw();
@@ -83,16 +74,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		navX.navX.zeroYaw();
-		//Robot.drivebase.zeroEncoder();
 		Robot.driveSubsystem.resetEncoders();
-		container.getAutonomousCommand().schedule();
+		commands.getAutonomousCommand().schedule();
 	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
-	public void autonomousPeriodic() {		
+	public void autonomousPeriodic() {	
+		Robot.driveSubsystem.periodic();
 		CommandScheduler.getInstance().run();
 	}
 
@@ -122,7 +113,6 @@ public class Robot extends TimedRobot {
 		Robot.driveSubsystem.periodic();
 
 	}
-
 
 
 	public void updateSmartDashboard() {

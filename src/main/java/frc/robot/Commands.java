@@ -31,8 +31,7 @@ public class Commands {
 
     public Command getAutonomousCommand(){
        
-        TrajectoryConfig config = new TrajectoryConfig(
-            Units.feetToMeters(14.0), Units.feetToMeters(6.56));
+        TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(14.0), Units.feetToMeters(6.56));
         config.setKinematics(RobotMap.kDriveKinematics);
 
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(

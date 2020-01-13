@@ -21,14 +21,14 @@ public class Drivebase {
 	public Drivebase() {
 		rightBack = new WPI_TalonSRX(RobotMap.REAR_RIGHT);
 		rightFront = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
-		leftFront = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
 		leftBack = new WPI_TalonSRX(RobotMap.REAR_LEFT);
+		leftFront = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
 		rightMotors = new SpeedControllerGroup(rightBack, rightFront);
 		leftMotors = new SpeedControllerGroup(leftBack, leftFront);
 		drive = new DifferentialDrive(leftMotors, rightMotors);
 		
 		rightBack.setInverted(RobotMap.REAR_RIGHT_INV);
-		rightFront.setInverted(RobotMap.FRONT_RIGHT_INV); //false
+		rightFront.setInverted(RobotMap.FRONT_RIGHT_INV); 
 		leftBack.setInverted(RobotMap.REAR_LEFT_INV);
 		leftFront.setInverted(RobotMap.FRONT_LEFT_INV);
 		
@@ -37,7 +37,7 @@ public class Drivebase {
 	}
 
 	public void drive(double left, double right) {
-		drive.tankDrive(right, left);
+		drive.tankDrive(left, right);
 	}
 
 	public void zeroEncoder() {
@@ -46,11 +46,11 @@ public class Drivebase {
 	}
 
 	public int getLeftEncoder() {
-		return -rightBack.getSelectedSensorPosition(0);
+		return leftFront.getSelectedSensorPosition(0);
 	}
 
 	public int getRightEncoder() {
-		return leftFront.getSelectedSensorPosition(0); //this is negative for practice bot
+		return -rightBack.getSelectedSensorPosition(0); //this is negative for practice bot
 	}
 
 }

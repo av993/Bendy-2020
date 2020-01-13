@@ -9,14 +9,16 @@ public class RobotMap {
 	//these don't do anything, but are here so we don't accidentally use their IDs
 	public static final int PDP = 0;
 	
-	public static final int FRONT_LEFT = 1;  //encoder on this talon
-	public static final int FRONT_RIGHT = 10; 
-	public static final int REAR_LEFT = 2; 
-	public static final int REAR_RIGHT = 11; //encoder on this talon
+
+
+	public static final int REAR_RIGHT = 1;  //encoder on this talon
+	public static final int REAR_LEFT = 10; 
+	public static final int FRONT_RIGHT = 2; 
+	public static final int FRONT_LEFT = 11; //encoder on this talon
 	
 	public static final boolean FRONT_LEFT_INV = false;
-	public static final boolean FRONT_RIGHT_INV = true;
-	public static final boolean REAR_LEFT_INV = false;
+	public static final boolean FRONT_RIGHT_INV = false;
+	public static final boolean REAR_LEFT_INV = true;
 	public static final boolean REAR_RIGHT_INV = false;
 	
 	public static final int CLIMBER_PDP_CHANNEL = 13;

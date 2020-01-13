@@ -27,30 +27,30 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem() {
         
-        rightBack = new WPI_TalonSRX(RobotMap.REAR_RIGHT);
-        rightFront = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
-        leftFront = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
-        leftBack = new WPI_TalonSRX(RobotMap.REAR_LEFT);
-
-        rightMotors = new SpeedControllerGroup(rightBack, rightFront);
-        leftMotors = new SpeedControllerGroup(leftBack, leftFront);
-
-        drive = new DifferentialDrive(leftMotors, rightMotors);
+      rightBack = new WPI_TalonSRX(RobotMap.REAR_RIGHT);
+      rightFront = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
+      leftBack = new WPI_TalonSRX(RobotMap.REAR_LEFT);
+      leftFront = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
+      rightMotors = new SpeedControllerGroup(rightBack, rightFront);
+      leftMotors = new SpeedControllerGroup(leftBack, leftFront);
+      drive = new DifferentialDrive(leftMotors, rightMotors);
       
-        rightBack.setInverted(RobotMap.REAR_RIGHT_INV);
-        rightFront.setInverted(RobotMap.FRONT_RIGHT_INV); //true
-        leftBack.setInverted(RobotMap.REAR_LEFT_INV);
-        leftFront.setInverted(RobotMap.FRONT_LEFT_INV);
+      rightBack.setInverted(RobotMap.REAR_RIGHT_INV);
+      rightFront.setInverted(RobotMap.FRONT_RIGHT_INV); 
+      leftBack.setInverted(RobotMap.REAR_LEFT_INV);
+      leftFront.setInverted(RobotMap.FRONT_LEFT_INV);
 
-        m_leftEncoder = new Encoder(11, 10, true);
-        m_rightEncoder = new Encoder(1, 2, false);
+      m_leftEncoder = new Encoder(11, 10, false);
+      m_rightEncoder = new Encoder(1, 2, true);
       
-        m_leftEncoder.setDistancePerPulse(RobotMap.kEncoderDistancePerPulse);
-        m_rightEncoder.setDistancePerPulse(RobotMap.kEncoderDistancePerPulse);
+      m_leftEncoder.setDistancePerPulse(RobotMap.kEncoderDistancePerPulse);
+      m_rightEncoder.setDistancePerPulse(RobotMap.kEncoderDistancePerPulse);
     
-        resetEncoders();
-        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
+      resetEncoders();
+      m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
     }
+    
+    //-------------------------BASIC DRIVING & ENCODERS----------------------------------------
     
     public void drive(double left, double right) {
       leftMotors.set(left);
@@ -58,8 +58,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-      leftMotors.setVoltage(rightVolts);
-      rightMotors.setVoltage(leftVolts);      
+      leftMotors.setVoltage(leftVolts);
+      rightMotors.setVoltage(rightVolts);      
     }
 
     public int getLeftEncoder() {
@@ -69,6 +69,8 @@ public class DriveSubsystem extends SubsystemBase {
     public int getRightEncoder() {
       return m_rightEncoder.get();
    }
+   
+   //-------------------------POSE CALCULATIONS----------------------------------------
 
     @Override
     public void periodic() {
