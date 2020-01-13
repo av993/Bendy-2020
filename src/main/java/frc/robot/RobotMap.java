@@ -16,10 +16,10 @@ public class RobotMap {
 	public static final int FRONT_RIGHT = 2; 
 	public static final int FRONT_LEFT = 11; //encoder on this talon
 	
-	public static final boolean FRONT_LEFT_INV = false;
-	public static final boolean FRONT_RIGHT_INV = false;
-	public static final boolean REAR_LEFT_INV = true;
-	public static final boolean REAR_RIGHT_INV = false;
+	public static final boolean FRONT_LEFT_INV = true;
+	public static final boolean FRONT_RIGHT_INV = true;
+	public static final boolean REAR_LEFT_INV = false;
+	public static final boolean REAR_RIGHT_INV = true;
 	
 	public static final int CLIMBER_PDP_CHANNEL = 13;
 	public static final int CLIMBER_ID = 3; 
@@ -54,10 +54,9 @@ public class RobotMap {
 		new DifferentialDriveKinematics(kTrackWidthMeters);
 
 
-		public static final int kEncoderCPR = 1024;
+		public static final int kEncoderCPR = 2350;
 		public static final double kWheelDiameterMeters = 0.1016;
-		public static final double kEncoderDistancePerPulse =
-			// Assumes the encoders are directly mounted on the wheel shafts
+		public static final double kEncoderConstant =
 			(kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
 

@@ -28,7 +28,7 @@ public class Autonomous {
 
 	public void assembleTest() {
 		//arr.add(new ActionTrajectory("Straight", 0, 0.01, false));
-		arr.add(new ActionWait(9999999));
+		//arr.add(new ActionWait(9999999));
 	}
 
 }

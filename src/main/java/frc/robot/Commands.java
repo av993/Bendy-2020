@@ -27,11 +27,11 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
  * Add your docs here.
  */
 public class Commands {
-    private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+    private final Drivebase m_robotDrive = new Drivebase();
 
     public Command getAutonomousCommand(){
        
-        TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(14.0), Units.feetToMeters(6.56));
+       /* TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(14.0), Units.feetToMeters(6.56));
         config.setKinematics(RobotMap.kDriveKinematics);
 
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
@@ -44,6 +44,8 @@ public class Commands {
             config
         );
 
+
+        
         RamseteCommand ramseteCommand = new RamseteCommand(
             trajectory,
             m_robotDrive::getPose,
@@ -58,6 +60,7 @@ public class Commands {
             m_robotDrive::tankDriveVolts,
             m_robotDrive
         );
-        return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));
+        return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));*/
+        return null;
     } 
 }

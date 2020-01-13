@@ -6,7 +6,7 @@ public abstract class ActionAbstract {
 	static final double offsetConstant = 30;
 	
 	public static double getCameraDegreeOffset() {
-		return Robot.camera.getCameraDegreeOffset();
+		return 0;//Robot.camera.getCameraDegreeOffset();
 	}
 
 	
