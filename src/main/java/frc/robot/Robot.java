@@ -40,10 +40,7 @@ public class Robot extends TimedRobot {
 		commands = new Commands();
 		navX = new NavX();
 		navX.navX.zeroYaw();
-
 		Robot.drivebase.zeroEncoder();
-
-
 	}
 
 	@Override
@@ -56,7 +53,8 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		navX.navX.zeroYaw();
 		Robot.drivebase.zeroEncoder();
-		commands.getAutonomousCommand().schedule();
+		CommandScheduler.getInstance().enable();
+		CommandScheduler.getInstance().schedule(commands.getAutonomousCommand());
 	}
 
 	/**
@@ -100,6 +98,9 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Left Encoder", Robot.drivebase.getLeftEncoder());
 		SmartDashboard.putNumber("Right Encoder", Robot.drivebase.getRightEncoder());
 		SmartDashboard.putNumber("NavX Yaw", Robot.navX.getYaw());
+		SmartDashboard.putNumber("Original Heading", Robot.navX.getOriginalHeading());
+		SmartDashboard.putNumber("GetPoseX", Robot.drivebase.getPoseX());
+		SmartDashboard.putNumber("GetPoseY", Robot.drivebase.getPoseY());
 		SmartDashboard.putNumber("Left Wheel Speed", Robot.drivebase.getLeftVelocity());
 		SmartDashboard.putNumber("Right Wheel Speed", Robot.drivebase.getLeftVelocity());
 		SmartDashboard.putNumber("Left Meters", Robot.drivebase.getLeftMeters());

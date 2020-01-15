@@ -31,16 +31,15 @@ public class Commands {
 
     public Command getAutonomousCommand(){
        
-       /* TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(14.0), Units.feetToMeters(6.56));
-        config.setKinematics(RobotMap.kDriveKinematics);
+       TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(14.0), Units.feetToMeters(6.56));
+       config.setKinematics(RobotMap.kDriveKinematics);
 
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             new Pose2d(0,0,new Rotation2d(0)), 
             List.of(
-                new Translation2d(1,0),
-                new Translation2d(2,0)
+                new Translation2d(0,1)
             ),
-            new Pose2d(3,0,new Rotation2d(0)),
+            new Pose2d(1,0,new Rotation2d(0)),
             config
         );
 
@@ -57,10 +56,9 @@ public class Commands {
             m_robotDrive::getWheelSpeeds,
             new PIDController(1,0,0),
             new PIDController(1,0,0),
-            m_robotDrive::tankDriveVolts,
+            m_robotDrive::setOutputVolts,
             m_robotDrive
         );
-        return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));*/
-        return null;
+        return ramseteCommand.andThen(() -> m_robotDrive.setOutputVolts(0, 0));
     } 
 }

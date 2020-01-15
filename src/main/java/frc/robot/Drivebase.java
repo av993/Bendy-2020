@@ -71,6 +71,17 @@ public class Drivebase extends SubsystemBase {
 		odometry.resetPosition(new Pose2d(), Rotation2d.fromDegrees(Robot.navX.getYaw()));
 	}
 
+	public Pose2d getPose(){
+		return odometry.getPoseMeters();
+	}
+
+	public double getPoseX(){
+		return odometry.getPoseMeters().getTranslation().getX();
+	}
+
+	public double getPoseY(){
+		return odometry.getPoseMeters().getTranslation().getY();
+	}
 
 	//------------------HELPER METHODS------------------------------
 
