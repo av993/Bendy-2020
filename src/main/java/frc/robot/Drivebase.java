@@ -13,12 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivebase extends SubsystemBase {
 
-	private WPI_TalonSRX rightBack;
-	private WPI_TalonSRX rightFront;
-	private WPI_TalonSRX leftFront;
-	private WPI_TalonSRX leftBack;
-	private Encoder leftEncoder;
-	private Encoder rightEncoder;
+	public WPI_TalonSRX rightBack;
+	public WPI_TalonSRX rightFront;
+	public WPI_TalonSRX leftFront;
+	public WPI_TalonSRX leftBack;
+
 	SpeedControllerGroup rightMotors;
 	SpeedControllerGroup leftMotors;
 	DifferentialDrive drive;
@@ -49,7 +48,7 @@ public class Drivebase extends SubsystemBase {
 	}
 
 	public void setOutputVolts(double left, double right) {
-		leftMotors.setVoltage(left);
+		leftMotors.setVoltage(-left);
 		rightMotors.setVoltage(right);
 	}
 
@@ -75,12 +74,13 @@ public class Drivebase extends SubsystemBase {
 		return odometry.getPoseMeters();
 	}
 
-	public double getPoseX(){
-		return odometry.getPoseMeters().getTranslation().getX();
+	public double getPoseX() {
+		return pose.getTranslation().getX();
+		
 	}
 
 	public double getPoseY(){
-		return odometry.getPoseMeters().getTranslation().getY();
+		return pose.getTranslation().getY();
 	}
 
 	//------------------HELPER METHODS------------------------------

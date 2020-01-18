@@ -31,15 +31,16 @@ public class Commands {
 
     public Command getAutonomousCommand(){
        
-       TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(14.0), Units.feetToMeters(6.56));
+       TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(10.0), Units.feetToMeters(6.56));
        config.setKinematics(RobotMap.kDriveKinematics);
 
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-            new Pose2d(0,0,new Rotation2d(0)), 
+            new Pose2d(0,0,new Rotation2d(0)),
             List.of(
-                new Translation2d(0,1)
+                new Translation2d(1,1),
+                new Translation2d(2,-1)
             ),
-            new Pose2d(1,0,new Rotation2d(0)),
+            new Pose2d(3,0,new Rotation2d(0)),
             config
         );
 
@@ -54,8 +55,8 @@ public class Commands {
                                            RobotMap.kaVoltSecondsSquaredPerMeter),
             RobotMap.kDriveKinematics,
             m_robotDrive::getWheelSpeeds,
-            new PIDController(1,0,0),
-            new PIDController(1,0,0),
+            new PIDController(0.0,0,0),
+            new PIDController(0.0,0,0),
             m_robotDrive::setOutputVolts,
             m_robotDrive
         );
