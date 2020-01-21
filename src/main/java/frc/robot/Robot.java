@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+import java.io.IOException;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -43,6 +46,14 @@ public class Robot extends TimedRobot {
 		navX = new NavX();
 		navX.navX.zeroYaw();
 		Robot.drivebase.zeroEncoder();
+
+		SmartDashboard.putNumber("P value", 2.4);
+		SmartDashboard.putNumber("I value", 0.0);
+		SmartDashboard.putNumber("D value", 0.0);
+		SmartDashboard.putNumber("Constant", 0.8);
+		SmartDashboard.putNumber("Left Volts", 0.0);
+		SmartDashboard.putNumber("Right Volts", 0.0);
+
 	}
 
 	@Override
@@ -60,7 +71,11 @@ public class Robot extends TimedRobot {
 
 		Robot.drivebase.zeroEncoder();
 		Robot.drivebase.reset();
-		autoCommand = commands.getAutonomousCommand();
+		try{
+			autoCommand = commands.getAutonomousCommand();
+		} catch (Exception e) {
+			System.out.println("CANNOT MAKE AUTONMOUS COMMAND");
+		}
 
 		System.out.println("------------------------------------------START-----------------------------------------------");
 		System.out.println("------------------------------------------START-----------------------------------------------");
@@ -116,8 +131,10 @@ public class Robot extends TimedRobot {
 		} else if (OI.lBtn[3]) {
 			Robot.drivebase.zeroEncoder();
 		} else {
-			Robot.drivebase.drive(OI.lY, OI.rY);
+			//Robot.drivebase.drive(OI.lY, OI.rY);
 		}
+
+		Robot.drivebase.setOutputVolts(-SmartDashboard.getNumber("Left Volts", 0.0), SmartDashboard.getNumber("Left Volts", 0.0));
 
 
 	}

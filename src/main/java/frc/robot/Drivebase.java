@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivebase extends SubsystemBase {
@@ -48,14 +49,14 @@ public class Drivebase extends SubsystemBase {
 	}
 
 	public void setOutputVolts(double left, double right) {
-		leftMotors.setVoltage(-left);
-		rightMotors.setVoltage(right);
+		leftMotors.setVoltage(-left * SmartDashboard.getNumber("Constant", 0.8));
+		rightMotors.setVoltage(right *  SmartDashboard.getNumber("Constant", 0.8));
 	}
 
 	//--------------- POSE METHODS---------------------
 
 	public void periodic() {
-		pose = odometry.update(Rotation2d.fromDegrees(Robot.navX.getYaw()), getLeftMeters(), getRightMeters());
+		pose = odometry.update(Rotation2d.fromDegrees(-Robot.navX.getYaw()), getLeftMeters(), getRightMeters());
 	}
 	public void zeroEncoder() {
 		leftFront.setSelectedSensorPosition(0, 0, 1000);

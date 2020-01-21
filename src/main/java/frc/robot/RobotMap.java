@@ -46,9 +46,9 @@ public class RobotMap {
 
 
 	// FROM ROBOT CHARACTERIZATION \\
-	public static final double ksVolts = 0.841; 					
-	public static final double kvVoltSecondsPerMeter = 0.927;	
-	public static final double kaVoltSecondsSquaredPerMeter = 0.264;
+	public static final double ksVolts = 0.843; 					
+	public static final double kvVoltSecondsPerMeter = 0.915;	
+	public static final double kaVoltSecondsSquaredPerMeter = 0.1; // characterization - 0.252
 	public static final double kTrackWidthMeters = 0.7874;
 	public static final DifferentialDriveKinematics kDriveKinematics = 
 		new DifferentialDriveKinematics(kTrackWidthMeters);
