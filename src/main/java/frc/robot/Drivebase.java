@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 public class Drivebase extends SubsystemBase {
 
 	public WPI_TalonSRX rightBack;
@@ -34,7 +38,7 @@ public class Drivebase extends SubsystemBase {
 		rightMotors = new SpeedControllerGroup(rightBack, rightFront);
 		leftMotors = new SpeedControllerGroup(leftBack, leftFront);
 		drive = new DifferentialDrive(leftMotors, rightMotors);
-		
+
 		rightBack.setInverted(RobotMap.REAR_RIGHT_INV);
 		rightFront.setInverted(RobotMap.FRONT_RIGHT_INV); 
 		leftBack.setInverted(RobotMap.REAR_LEFT_INV);
@@ -52,6 +56,22 @@ public class Drivebase extends SubsystemBase {
 		leftMotors.setVoltage(-left * SmartDashboard.getNumber("Constant", 0.8));
 		rightMotors.setVoltage(right *  SmartDashboard.getNumber("Constant", 0.8));
 	}
+
+	//------------------CAMERA METHODS------------------------------\\
+	// create method (without min thing first), call it from Robot, set and get kP value
+	public void turnToTarget(){
+		double kP = SmartDashboard.getNumber("kP", 0.0123); // turning value
+		double mP = SmartDashboard.getNumber("mP", 0.525); // turning value
+		double tX = Robot.camera.getXOffset();
+		// double heading_error = tX;
+		double drivePower = kP * Math.abs(tX) + mP;
+		
+		if (Math.abs(tX) < 2){
+			drivePower = 0;
+		}
+		drive(Math.copySign(drivePower, tX), -Math.copySign(drivePower, tX));
+	}
+	
 
 	//--------------- POSE METHODS---------------------
 
@@ -86,7 +106,7 @@ public class Drivebase extends SubsystemBase {
 
 	//------------------HELPER METHODS------------------------------
 
-
+	
 	public int getLeftEncoder() {
 		return leftFront.getSelectedSensorPosition(0);
 	}
@@ -110,7 +130,5 @@ public class Drivebase extends SubsystemBase {
 	public double getRightVelocity() {
 		return -rightBack.getSelectedSensorVelocity(0) * RobotMap.kEncoderConstant * 10;
 	}
-	
-
 
 }

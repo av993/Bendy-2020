@@ -12,13 +12,13 @@ public class RobotMap {
 
 
 	public static final int REAR_RIGHT = 1;  //encoder on this talon
-	public static final int REAR_LEFT = 10; 
+	public static final int REAR_LEFT = 12; // 10 actually, get pranked 
 	public static final int FRONT_RIGHT = 2; 
 	public static final int FRONT_LEFT = 11; //encoder on this talon
 	
 	public static final boolean FRONT_LEFT_INV = true;
 	public static final boolean FRONT_RIGHT_INV = true;
-	public static final boolean REAR_LEFT_INV = false;
+	public static final boolean REAR_LEFT_INV = true;
 	public static final boolean REAR_RIGHT_INV = true;
 	
 	public static final int CLIMBER_PDP_CHANNEL = 13;
@@ -30,9 +30,9 @@ public class RobotMap {
 	public static final int INTAKE_ID = 5;
 	public static final boolean INTAKE_INV = false;
 	
-	public static final int SHOOTER_ID = 9;
-	public static final int SHOOTER_SLAVE_ID = 8;
-	public static final boolean SHOOTER_INV = true;
+	//public static final int SHOOTER_ID = 8;
+	//public static final int SHOOTER_SLAVE_ID = 9;
+	//public static final boolean SHOOTER_INV = true;
 	//public static final boolean SHOOTER_SLAVE_INV = true; 
 	
 	public static final int NACRAC_ID = 7;
@@ -46,9 +46,9 @@ public class RobotMap {
 
 
 	// FROM ROBOT CHARACTERIZATION \\
-	public static final double ksVolts = 0.843; 					
-	public static final double kvVoltSecondsPerMeter = 0.915;	
-	public static final double kaVoltSecondsSquaredPerMeter = 0.1; // characterization - 0.252
+	public static final double ksVolts = 0.843; 	//0.843				
+	public static final double kvVoltSecondsPerMeter = 0.915; //0.915	
+	public static final double kaVoltSecondsSquaredPerMeter = 0.25; // characterization - 0.252
 	public static final double kTrackWidthMeters = 0.7874;
 	public static final DifferentialDriveKinematics kDriveKinematics = 
 		new DifferentialDriveKinematics(kTrackWidthMeters);

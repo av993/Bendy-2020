@@ -36,6 +36,8 @@ public class Robot extends TimedRobot {
 	public static Commands commands;
 	public static Drivebase drivebase;
 	public static Command autoCommand;
+	//public static Shooter shooter;
+	public static Camera camera;
 
 	@Override
 	public void robotInit() {
@@ -44,6 +46,8 @@ public class Robot extends TimedRobot {
 		drivebase = new Drivebase();
 		commands = new Commands();
 		navX = new NavX();
+		//shooter = new Shooter();
+		camera = new Camera();
 		navX.navX.zeroYaw();
 		Robot.drivebase.zeroEncoder();
 
@@ -51,8 +55,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("I value", 0.0);
 		SmartDashboard.putNumber("D value", 0.0);
 		SmartDashboard.putNumber("Constant", 0.8);
-		SmartDashboard.putNumber("Left Volts", 0.0);
-		SmartDashboard.putNumber("Right Volts", 0.0);
+		SmartDashboard.putNumber("Volts", 0.0);
+		SmartDashboard.putNumber("kP", 0.0123); // turning value
+		SmartDashboard.putNumber("mP", 0.525); // turning value
+		SmartDashboard.putNumber("Drive Power", 0);
+
 
 	}
 
@@ -125,16 +132,21 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		OI.update();
 		Robot.drivebase.periodic();
+		//Robot.shooter.control();
 
 		if (OI.lBtn[2]) {
 			navX.navX.zeroYaw();
 		} else if (OI.lBtn[3]) {
 			Robot.drivebase.zeroEncoder();
-		} else {
-			//Robot.drivebase.drive(OI.lY, OI.rY);
+		}
+		else if(OI.lBtn[5]){ //Amerya said 7
+			Robot.drivebase.turnToTarget();
+		} 
+		else {
+			Robot.drivebase.drive(OI.lY, OI.rY);
 		}
 
-		Robot.drivebase.setOutputVolts(-SmartDashboard.getNumber("Left Volts", 0.0), SmartDashboard.getNumber("Left Volts", 0.0));
+		//Robot.drivebase.setOutputVolts(SmartDashboard.getNumber("Volts", 0.0), SmartDashboard.getNumber("Volts", 0.0));
 
 
 	}
@@ -155,7 +167,21 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Right Feet", Units.metersToFeet(Robot.drivebase.getRightMeters()));
 		SmartDashboard.putNumber("Left Power", Robot.drivebase.leftFront.get());
 		SmartDashboard.putNumber("Right Power", Robot.drivebase.rightFront.get());
+		//SmartDashboard.putNumber("Shooter Velocity", Robot.shooter.shooter.getSelectedSensorVelocity());
+		//SmartDashboard.putNumber("Slave Power", Robot.shooter.shooterSlave.get());
+		SmartDashboard.putNumber("XOffset", camera.getXOffset());
+		SmartDashboard.putNumber("YOffset", camera.getYOffset());
+		SmartDashboard.putNumber("Area", camera.getArea());
+		SmartDashboard.putBoolean("Valid Contour?", camera.hasValid());
+		SmartDashboard.putNumber("Distance To PP", Robot.camera.getDistance());
 
+		double kP = SmartDashboard.getNumber("kP", 0.0123); // turning value
+		double mP = SmartDashboard.getNumber("mP", 0.525); // turning value
+		double tX = Robot.camera.getXOffset();
+		// double heading_error = tX;
+		double drivePower = kP * Math.abs(tX) + mP;
+		
+		SmartDashboard.putNumber("Turn Power", drivePower);
 
 	}
 }

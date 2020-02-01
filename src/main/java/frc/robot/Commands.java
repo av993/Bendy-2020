@@ -38,7 +38,7 @@ public class Commands {
        
         var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(RobotMap.ksVolts, RobotMap.kvVoltSecondsPerMeter, RobotMap.kaVoltSecondsSquaredPerMeter), RobotMap.kDriveKinematics, 10);
 
-       TrajectoryConfig config = new TrajectoryConfig(3.0, 1.0)
+       TrajectoryConfig config = new TrajectoryConfig(3.0, 3.0)
        .setKinematics(RobotMap.kDriveKinematics)
        .addConstraint(autoVoltageConstraint);
 
